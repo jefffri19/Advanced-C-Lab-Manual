@@ -16,7 +16,31 @@ Algorithm:
  
 Program:
 
-//type your code here
+```c
+#include <stdio.h>
+
+int main() {
+    int n;
+
+    printf("Enter a number (71-79): ");
+    scanf("%d", &n);
+
+    switch (n) {
+        case 71: printf("seventy one\n"); break;
+        case 72: printf("seventy two\n"); break;
+        case 73: printf("seventy three\n"); break;
+        case 74: printf("seventy four\n"); break;
+        case 75: printf("seventy five\n"); break;
+        case 76: printf("seventy six\n"); break;
+        case 77: printf("seventy seven\n"); break;
+        case 78: printf("seventy eight\n"); break;
+        case 79: printf("seventy nine\n"); break;
+        default: printf("Number is out of range (71-79)\n");
+    }
+
+    return 0;
+}
+```
 
 
 
@@ -24,7 +48,10 @@ Program:
 Output:
 
 
-//paste your output here
+```
+Enter a number (71-79): 74
+seventy four
+```
 
 
 
@@ -47,7 +74,30 @@ Algorithm:
  
 Program:
 
-//type your code here
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char a[50];
+    int count[10] = {0};
+
+    printf("Enter a string of digits: ");
+    scanf("%s", a);
+
+    for (int h = 0; a[h] != '\0'; h++) {
+        if (a[h] >= '0' && a[h] <= '9')
+            count[a[h] - '0']++;
+    }
+
+    for (int d = 0; d <= 9; d++) {
+        printf("%d ", count[d]);
+    }
+    printf("\n");
+
+    return 0;
+}
+```
 
 
 
@@ -55,7 +105,10 @@ Program:
 Output:
 
 
-//paste your output here
+```
+Enter a string of digits: 112233440
+1 2 2 2 2 0 0 0 0 0 
+```
 
 
 
@@ -84,7 +137,78 @@ Free the memory allocated for each string in s Free the memory allocated for s
  
 Program:
 
-//type your code here
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+char **perms;
+int count;
+
+void swap(char *x, char *y) {
+    char t = *x;
+    *x = *y;
+    *y = t;
+}
+
+void collect(char *str, int l, int r) {
+    if (l == r) {
+        perms[count] = (char *)malloc(50);
+        strcpy(perms[count], str);
+        count++;
+        return;
+    }
+    for (int k = l; k <= r; k++) {
+        swap(&str[l], &str[k]);
+        collect(str, l + 1, r);
+        swap(&str[l], &str[k]);
+    }
+}
+
+int cmpfunc(const void *a, const void *b) {
+    return strcmp(*(const char **)a, *(const char **)b);
+}
+
+int main() {
+    int n;
+    printf("Enter number of strings: ");
+    scanf("%d", &n);
+
+    char **s = (char **)malloc(n * sizeof(char *));
+    for (int i = 0; i < n; i++) {
+        s[i] = (char *)malloc(50 * sizeof(char));
+        printf("Enter string %d: ", i + 1);
+        scanf("%s", s[i]);
+    }
+
+    for (int i = 0; i < n; i++) {
+        int len = strlen(s[i]);
+        char buf[50];
+        strcpy(buf, s[i]);
+
+        int factorial = 1;
+        for (int f = 2; f <= len; f++) factorial *= f;
+
+        perms = (char **)malloc(factorial * sizeof(char *));
+        count = 0;
+
+        collect(buf, 0, len - 1);
+        qsort(perms, count, sizeof(char *), cmpfunc);
+
+        printf("Permutations of %s in lexicographical order:\n", s[i]);
+        for (int p = 0; p < count; p++) {
+            printf("%s\n", perms[p]);
+            free(perms[p]);
+        }
+        free(perms);
+    }
+
+    for (int i = 0; i < n; i++) free(s[i]);
+    free(s);
+
+    return 0;
+}
+```
 
 
 
@@ -92,7 +216,13 @@ Program:
 Output:
 
 
-//paste your output here
+```
+Enter number of strings: 1
+Enter string 1: AB
+Permutations of AB in lexicographical order:
+AB
+BA
+```
 
 
 
@@ -117,7 +247,37 @@ Algorithm:
  
 Program:
 
-//type your code here
+```c
+#include <stdio.h>
+
+int main() {
+    int n, i, j, min;
+
+    printf("Enter n: ");
+    scanf("%d", &n);
+
+    int len = n * 2 - 1;
+
+    for (i = 0; i < len; i++) {
+        for (j = 0; j < len; j++) {
+            int distTop = i;
+            int distBottom = len - i - 1;
+            int distLeft = j;
+            int distRight = len - j - 1;
+
+            min = distTop;
+            if (distBottom < min) min = distBottom;
+            if (distLeft < min) min = distLeft;
+            if (distRight < min) min = distRight;
+
+            printf("%d ", n - min);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+```
 
 
 
@@ -125,7 +285,16 @@ Program:
 Output:
 
 
-//paste your output here
+```
+Enter n: 4
+4 4 4 4 4 4 4 
+4 3 3 3 3 3 4 
+4 3 2 2 2 3 4 
+4 3 2 1 2 3 4 
+4 3 2 2 2 3 4 
+4 3 3 3 3 3 4 
+4 4 4 4 4 4 4 
+```
 
 
 
@@ -156,7 +325,22 @@ o	Call the square() function and display the result.
 
 Program:
 
-//type your code here
+```c
+#include <stdio.h>
+
+int square() {
+    int num;
+    printf("Enter a number: ");
+    scanf("%d", &num);
+    return num * num;
+}
+
+int main() {
+    int result = square();
+    printf("Square = %d\n", result);
+    return 0;
+}
+```
 
 
 
@@ -164,7 +348,10 @@ Program:
 Output:
 
 
-//paste your output here
+```
+Enter a number: 9
+Square = 81
+```
 
 
 
