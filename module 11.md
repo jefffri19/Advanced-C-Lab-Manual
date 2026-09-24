@@ -2,14 +2,15 @@
 
 EXP NO:21 C PROGRAM TO CREATE A FUNCTION TO FIND THE GREATEST NUMBER
 Aim:
-To write a C program to create a function to find the greatest number
+
+To write a C program to create a function to find the greatest number.
 
 Algorithm:
 1.	Include the necessary header #include <stdio.h>.
 2.	Use a series of if and else if statements to compare the values and return the maximum among them.
 3.	Declare variables n1, n2, n3, n4, and greater to store user input and the result.
 4.	Use scanf to take four integers as input.
-5.	Call the max_of_four function with the input integers and store the result in the greater variable
+5.	Call the max_of_four function with the input integers and store the result in the greater variable.
  
 Program:
 ```c
